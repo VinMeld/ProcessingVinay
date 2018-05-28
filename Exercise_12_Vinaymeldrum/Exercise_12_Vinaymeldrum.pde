@@ -8,17 +8,28 @@ String txt;
 int decider, numberOfCapital, numberOfVowels, maxLetters, punctuationCount, amountOfWords, index;
 
 // Loading files
-String ot[] = loadStrings("othello.txt");
-String illiad[] = loadStrings("illiad.txt");
-String romeo[] = loadStrings("romeoAndJuliet.txt");
-String the[] = loadStrings("theOdyssey.txt");
-String hamlet[] = loadStrings("hamlet.txt");
-String macbeth[] = loadStrings("macbeth.txt");
+String ot[];
+String illiad[];
+String romeo[];
+String the[];
+String hamlet[];
+String macbeth[];
 
 // Initial setup
 void setup() {
   background(0);
+  println("1setup");
+  ot = loadStrings("othello.txt");
+  println("2setup");
+  illiad = loadStrings("illiad.txt");
+  romeo = loadStrings("romeoAndJuliet.txt");
+  the = loadStrings("theOdyssey.txt");
+  hamlet = loadStrings("hamlet.txt");
+  macbeth = loadStrings("macbeth.txt");
+  println("Endsetup");
   size(600, 600);
+  text("Hi", 100, 100);
+  println("draw");
   selectFile();
   lengthOfText();
   capitalLetters();
@@ -26,6 +37,7 @@ void setup() {
   wordCount();
   punctuation();
   mostUsedLetter();
+  println("enddraw");
 }
 
 // Not used in program
@@ -35,6 +47,7 @@ void draw() {
 
 // Randomly selects a file
 void selectFile() {
+  println("SelectFile");
   decider = (int)random(0, 5);
   if (decider == 0) {
     sentence = ot;
@@ -65,6 +78,8 @@ void selectFile() {
 
 // Determines character count of text file
 void lengthOfText() {
+  println("Length");
+
   text("Length of text file: " + txt.length() + " characters", 100, 200);
 }
 
@@ -87,6 +102,8 @@ void capitalLetters() {
 
 // Determines the amount of vowels
 void vowels() {
+  println("Vowel");
+
   for (int i = 0; i < txt.length(); i++) {
     char c = txt.charAt(i);
     if (c == 'a' || c == 'A' || c == 'e' || c == 'E' || c == 'i' || c == 'I' || c == 'o' || c == 'O' || c == 'u' || c == 'U') {
@@ -98,11 +115,11 @@ void vowels() {
 
 // Determines the amount of words
 void wordCount() {
-  for (int i = 0; i < txt.length(); i++) {
-    String[] list = split(txt, ' ');
-    amountOfWords = list.length;
-    text("Number of words: " + amountOfWords, 100, 350);
-  }
+  println("Wordcount");
+  println(txt.length());
+  String[] list = split(txt, ' ');
+  amountOfWords = list.length;
+  text("Number of words: " + amountOfWords, 100, 350);
 }
 
 // Determines the amount of punctuation marks
@@ -112,13 +129,16 @@ void punctuation() {
     if (c == '\'' || c == ':' || c ==  ';' || c == '.' || c == ',' || c == '!' || c == '?') {
       punctuationCount++;
     }
-    text("Number of punctuation marks: " + punctuationCount, 100, 400);
-    println("Number of punctuation marks: " + punctuationCount);
   }
+  text("Number of punctuation marks: " + punctuationCount, 100, 400);
+  println("Number of punctuation marks: " + punctuationCount);
 }
 
 // Determines the most frequently occuring letter
 void mostUsedLetter() {
+  char mostOccuringLetter = ' ';
+  println("MostUsedLetter");
+
   //Lowercase
   char[] lowercaseArray = txt.toLowerCase().toCharArray();
   int[] allLetters = new int [26];
@@ -134,8 +154,8 @@ void mostUsedLetter() {
       maxLetters = allLetters[i];
       index = i;
     }
-    char mostOccuringLetter = char('a' + index);
-    text("Most occuring letter: " + mostOccuringLetter + " has occured " + maxLetters + " times.", 100, 450);
-    println("Most occuring letter: " + mostOccuringLetter + " has occured " + maxLetters + " times.");
+     mostOccuringLetter = char('a' + index);
   }
+  text("Most occuring letter: " + mostOccuringLetter + " has occured " + maxLetters + " times.", 100, 450);
+  println("Most occuring letter: " + mostOccuringLetter + " has occured " + maxLetters + " times.");
 }
